@@ -27,8 +27,8 @@ const Page = () => {
   useEffect(() => {
     const fetchAttendanceData = async () => {
       if (session?.user?.email) {
-        const connectionString = process.env.NEXT_PUBLIC_BACKEND_URL|| "something" + process.env.ATTENDANCE_URL || "server";
-        const response = await axios.post(connectionString , { email: session.user.email });
+        const connectionString = `${process.env.NEXT_PUBLIC_BACKEND_URL}${process.env.ATTENDANCE_URL}`;
+        const response = await axios.post(connectionString, { email: session.user.email });
         setAttendanceData(response.data.attendanceRecords);
         setStudentDetails(response.data.studentDetails);
       }

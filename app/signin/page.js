@@ -14,14 +14,18 @@ export default function SignInPrompt() {
     if (status === 'authenticated') {
       const emailDomain = data?.user?.email?.split('@')[1];
       if (emailDomain === process.env.DOMAIN) {
-        router.back(); // Redirect to the homepage
+        router.push('/'); // Redirect to the homepage
       }
     }
   }, [status, data, router]);
 
-  async function handleSignIn() {
-    await signIn('google', { callbackUrl: '/' });
-  }
+  const handleSignIn = async () => {
+    try {
+      await signIn('google', { callbackUrl: '/' });
+    } catch (error) {
+      console.error('Sign-in error:', error);
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen">

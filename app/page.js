@@ -7,15 +7,14 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
-
-  const route = useRouter();
   const { status } = useSession();
+  const route = useRouter();
 
   function handleViewAttendance() {
-    if (status !== 'authenticated') {
-      route.push('/signin');
-    } else {
+    if (status === 'authenticated') {
       route.push('/viewattendance');
+    } else {
+      route.push('/signin');
     }
   }
 
