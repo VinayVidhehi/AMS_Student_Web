@@ -10,6 +10,7 @@ import GoogleProvider from "next-auth/providers/google";
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
       async signIn({ account, profile }) {
         if (account?.provider === "google") {
