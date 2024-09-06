@@ -8,13 +8,7 @@ import GoogleProvider from "next-auth/providers/google";
         clientId: process.env.GOOGLE_CLIENT_ID ,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         redirect_uri:process.env.GOOGLE_REDIRECT_URI,
-        authorization: {
-            params: {
-              scope: "openid email profile",
-              prompt: "select_account",
-              ack_oob_shutdown: "2022-10-03",  // Acknowledge OOB shutdown
-            },
-          },
+        ack_oob_shutdown: "2022-10-03",
       }),
     ],
     secret: process.env.NEXTAUTH_SECRET,

@@ -21,7 +21,7 @@ export default function SignInPrompt() {
 
   const handleSignIn = async () => {
     try {
-      await signIn('google', { callbackUrl: '/' });
+      await signIn('google');
     } catch (error) {
       console.error('Sign-in error:', error);
     }
