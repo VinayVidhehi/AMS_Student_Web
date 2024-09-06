@@ -18,19 +18,6 @@ import GoogleProvider from "next-auth/providers/google";
       }),
     ],
     secret: process.env.NEXTAUTH_SECRET,
-    callbacks: {
-      async signIn({ account, profile }) {
-        if (account?.provider === "google") {
-          // Check if the profile contains email_verified and email is not undefined
-          if (profile?.email_verified && profile.email && profile.email.endsWith("@rvce.edu.in")) {
-            return true; // Allow sign-in if verified and email is from @rvce.edu.in
-          } else {
-            return false; // Block sign-in if email isn't verified or email is missing
-          }
-        }
-        return true; // Allow sign-in for other providers
-      },
-    },
 
   };
 
