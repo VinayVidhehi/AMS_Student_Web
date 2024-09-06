@@ -7,7 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID ,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        redirect_uri:process.env.GOOGLE_REDIRECT_URI,
+        redirect_uri:"https://attendancems-rvce.netlify.app/api/auth/callback/google",
         ack_oob_shutdown: "2022-10-03",
       }),
     ],
