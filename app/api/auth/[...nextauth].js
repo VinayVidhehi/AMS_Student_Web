@@ -9,7 +9,9 @@ import GoogleProvider from "next-auth/providers/google";
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         authorization: {
             params: {
-              prompt: 'select_account',
+              scope: "openid email profile",
+              prompt: "select_account",
+              ack_oob_shutdown: "2022-10-03",  // Acknowledge OOB shutdown
             },
           },
       }),
