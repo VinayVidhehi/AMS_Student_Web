@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-  
   export const authOptions = {
     // Configure one or more authentication providers
     providers: [
@@ -10,7 +9,6 @@ import GoogleProvider from "next-auth/providers/google";
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
     ],
-    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
       async signIn({ account, profile }) {
         if (account?.provider === "google") {
@@ -23,7 +21,8 @@ import GoogleProvider from "next-auth/providers/google";
         }
         return true; // Allow sign-in for other providers
       },
-    }
+    },
+
   };
 
 
