@@ -7,6 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID ,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        redirect_uri:process.env.GOOGLE_REDIRECT_URI,
         authorization: {
             params: {
               scope: "openid email profile",
