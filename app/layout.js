@@ -25,7 +25,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SessionProvider session={session} basePath="/api/auth">{children}</SessionProvider>
+        <SessionProvider session={session} >{children}</SessionProvider>
       </body>
     </html>
   );
