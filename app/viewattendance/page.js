@@ -49,11 +49,11 @@ const Page = () => {
   const userName = user?.given_name || "User"; // Use the user's name from context
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white text-black px-4">
       <Header />
       <div className="container mx-auto py-10">
         {/* Greet the user by name */}
-        <h2 className="text-2xl font-semibold mb-6">Hey {userName}, find your attendance here!</h2>
+        <h2 className="text-2xl font-semibold mb-6 ">Hey {userName}, find your attendance here!</h2>
         
         <div className="mb-6">
           <div className="flex items-center space-x-4">

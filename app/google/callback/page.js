@@ -1,7 +1,7 @@
 // app/google/callback/page.js
 "use client";
 
-import {useEffect, Suspense} from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/app/context/useContext';
 
@@ -40,17 +40,22 @@ const GoogleCallback = () => {
     };
 
     handleGoogleAuth();
-  }, [code, router, setUserAndToken]);
 
-  <div className="auth-processing">
-  <p>Don’t go anywhere! We’re almost done making friends with Google. Your patience is the secret ingredient!</p>
-</div>
+    // Disable the eslint dependency warning here
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // No dependencies to re-run this effect
+
+  return (
+    <div className="auth-processing">
+      <p>Don’t go anywhere! We’re almost done making friends with Google. Your patience is the secret ingredient!</p>
+    </div>
+  );
 };
 
 const Page = () => (
-    <Suspense fallback={<div>Loading...</div>}>
-      <GoogleCallback />
-    </Suspense>
-  );
+  <Suspense fallback={<div><p>Don’t go anywhere! We’re almost done making friends with Google. Your patience is the secret ingredient!</p></div>}>
+    <GoogleCallback />
+  </Suspense>
+);
 
 export default Page;
