@@ -1,7 +1,7 @@
 // app/google/callback/page.js
 "use client";
 
-import { useEffect } from 'react';
+import {useEffect, Suspense} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/app/context/useContext';
 
@@ -10,8 +10,6 @@ const GoogleCallback = () => {
   const code = searchParams.get('code'); // Get the auth code from the URL
   const { setUserAndToken } = useUser();
   const router = useRouter();
-
-  console.log("code is ", code);
 
   useEffect(() => {
     const handleGoogleAuth = async () => {
@@ -42,11 +40,17 @@ const GoogleCallback = () => {
     };
 
     handleGoogleAuth();
-  }, []);
+  }, [code, router, setUserAndToken]);
 
   <div className="auth-processing">
   <p>Don’t go anywhere! We’re almost done making friends with Google. Your patience is the secret ingredient!</p>
 </div>
 };
 
-export default GoogleCallback;
+const Page = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+      <GoogleCallback />
+    </Suspense>
+  );
+
+export default Page;

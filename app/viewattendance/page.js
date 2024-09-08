@@ -37,7 +37,6 @@ const Page = () => {
   }, [user]);
 
   const handleViewCourseAttendance = () => {
-    console.log("attendance data length is ", attendanceData.length);
     if (courseId && attendanceData) {
       const filteredAttendance = attendanceData.filter((course) => course.courseId === courseId);
       if (filteredAttendance.length > 0) {
@@ -46,7 +45,6 @@ const Page = () => {
     }
   };
 
-  console.log("user is ", user);
 
   const userName = user?.given_name || "User"; // Use the user's name from context
 
