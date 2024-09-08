@@ -1,15 +1,15 @@
 import Image from 'next/image'
 import React from 'react'
 import rvlogo from '../../public/rvcelogo.png'
-import { useSession } from 'next-auth/react'
+import { useUser } from '@/app/context/useContext'
 import { Avatar, AvatarFallback} from "@/components/ui/avatar"
 
 
 const Header= () => {
-  const { data: session } = useSession();
 
+  const {user} = useUser();
   // Extract the first letter of the user's name, or default to 'A'
-  const userInitial = session?.user?.name ? session.user.name.charAt(0) : 'A';
+  const userInitial =  user?.given_name[0] ||  'A';
 
 
   return (

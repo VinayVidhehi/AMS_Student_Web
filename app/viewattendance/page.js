@@ -1,49 +1,43 @@
-'use client'
+'use client';
 
-import { Button } from '@/components/ui/button'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import Header from '@/components/sections/Header'
-import { cn } from '@/lib/utils'
-
+} from "@/components/ui/select";
+import Header from '@/components/sections/Header';
+import { cn } from '@/lib/utils';
+import { useUser } from '../context/useContext';
 
 const Page = () => {
   const [attendanceData, setAttendanceData] = useState(null);
   const [studentDetails, setStudentDetails] = useState(null);
   const [courseId, setCourseId] = useState(null);
   const [courseAttendance, setCourseAttendance] = useState(null);
-  const { data: session, status } = useSession();
-  const router = useRouter();
+  const [serverMessage, setServerMessage] = useState("");
+  const {user} = useUser(); // User coming from context
 
   useEffect(() => {
     const fetchAttendanceData = async () => {
-      if (session?.user?.email) {
-        const connectionString = `${process.env.NEXT_PUBLIC_BACKEND_URL}${process.env.ATTENDANCE_URL}`;
-        const response = await axios.post(connectionString, { email: session.user.email });
+      if (user) {
+        const connectionString = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
+        const response = await axios.post(connectionString, { email: user.email });
         setAttendanceData(response.data.attendanceRecords);
+        setServerMessage(response.data.message);
         setStudentDetails(response.data.studentDetails);
       }
     };
 
     fetchAttendanceData();
-  }, [session?.user?.email]);
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.back();
-    }
-  }, [status, session, router]);
+  }, [user]);
 
   const handleViewCourseAttendance = () => {
+    console.log("attendance data length is ", attendanceData.length);
     if (courseId && attendanceData) {
       const filteredAttendance = attendanceData.filter((course) => course.courseId === courseId);
       if (filteredAttendance.length > 0) {
@@ -52,14 +46,18 @@ const Page = () => {
     }
   };
 
-  console.log("course attendance is ", courseAttendance);
+  console.log("user is ", user);
+
+  const userName = user?.given_name || "User"; // Use the user's name from context
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <Header/>
+      <Header />
       <div className="container mx-auto py-10">
+        {/* Greet the user by name */}
+        <h2 className="text-2xl font-semibold mb-6">Hey {userName}, find your attendance here!</h2>
+        
         <div className="mb-6">
-          
           <div className="flex items-center space-x-4">
             <Select onValueChange={(value) => setCourseId(value)}>
               <SelectTrigger className="w-[180px] border border-gray-300 rounded-md bg-white text-black">
@@ -82,6 +80,10 @@ const Page = () => {
             )}
           </div>
         </div>
+
+        {serverMessage != "" && <div>
+          <h3 className='text-xs text-red-600 font-sans'>{serverMessage}</h3>
+          </div>}
 
         {courseAttendance && (
           <div className="mt-8">
@@ -115,7 +117,7 @@ const Page = () => {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Page
+export default Page;

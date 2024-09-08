@@ -3,20 +3,12 @@
 import React from 'react';
 import Header from '@/components/sections/Header';
 import { Button } from '@/components/ui/button';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
-  const { status } = useSession();
-  const route = useRouter();
 
-  function handleViewAttendance() {
-    if (status === 'authenticated') {
-      route.push('/viewattendance');
-    } else {
-      route.push('/signin');
-    }
-  }
+  const router = useRouter();
+
 
   return (
     <div className='md:p-4 flex flex-col justify-between py-2'>
@@ -28,7 +20,7 @@ const Page = () => {
             <p className='md:text-5xl text-3xl font-extrabold md:font-medium md:py-4 py-2'>Convenient and Quick</p>
           </div>
           <div className='md:px-28'>
-            <Button onClick={handleViewAttendance}>View Attendance</Button>
+            <Button onClick={() => router.push('/signin')}>View Attendance</Button>
           </div>
         </div>
         <div className='md:px-12 py-4 px-2 md:mt-16 mt-12'>
